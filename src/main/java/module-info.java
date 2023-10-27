@@ -5,4 +5,5 @@ module org.vasistas.basil {
     exports org.vaasistas.basil;
     exports org.vaasistas.basil.introspection;
     exports org.vaasistas.basil.sample;
+    exports org.vaasistas.basil.gui;
 }
