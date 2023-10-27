@@ -1,4 +1,4 @@
-package org.vasistas.basil.sample;
+package org.vaasistas.basil.sample;
 
 public interface Eating {
     String eats();

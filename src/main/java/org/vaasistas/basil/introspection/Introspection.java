@@ -1,4 +1,4 @@
-package org.vasistas.basil.introspection;
+package org.vaasistas.basil.introspection;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

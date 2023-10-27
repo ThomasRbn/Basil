@@ -2,7 +2,7 @@ module org.vasistas.basil {
     requires javafx.controls;
     requires javafx.fxml;
 
-    exports org.vasistas.basil;
-    exports org.vasistas.basil.introspection;
-    exports org.vasistas.basil.sample;
+    exports org.vaasistas.basil;
+    exports org.vaasistas.basil.introspection;
+    exports org.vaasistas.basil.sample;
 }

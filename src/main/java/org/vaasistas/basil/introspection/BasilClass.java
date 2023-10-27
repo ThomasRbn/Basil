@@ -1,4 +1,4 @@
-package org.vasistas.basil.introspection;
+package org.vaasistas.basil.introspection;
 
 import java.util.List;
 

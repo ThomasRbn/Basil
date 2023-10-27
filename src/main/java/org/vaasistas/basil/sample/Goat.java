@@ -1,4 +1,4 @@
-package org.vasistas.basil.sample;
+package org.vaasistas.basil.sample;
 
 public class Goat extends Animal implements Locomotion {
 
