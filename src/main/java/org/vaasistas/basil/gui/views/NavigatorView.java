@@ -10,8 +10,10 @@ import org.vaasistas.basil.introspection.treeProcess.FileStructure;
 public class NavigatorView extends TreeView<FileStructure> {
 
     private BasilFolder root;
+    private DiagramView diagramView;
 
-    public NavigatorView(String directoryPath) {
+    public NavigatorView(String directoryPath, DiagramView diagramView) {
+        this.diagramView = diagramView;
         this.root = new BasilFolder(directoryPath);
         root.buildFolderContent();
         TreeItem<FileStructure> rootItem = new TreeItem<>(root);
@@ -28,7 +30,7 @@ public class NavigatorView extends TreeView<FileStructure> {
                 if (selectedItem != null) {
                     FileStructure file = selectedItem.getValue();
                     BasilClass basilClass = new BasilClass(file.getPackage() + file.getName().substring(0, file.getName().length() - 5));
-                    System.out.println(basilClass);
+                    new BasilClassView(basilClass, this.diagramView);
                 }
             }
         });
