@@ -1,17 +1,20 @@
 package org.vaasistas.basil.gui.views;
 
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import org.vaasistas.basil.introspection.TreeStructure;
+import org.vaasistas.basil.introspection.treeProcess.BasilFolder;
+import org.vaasistas.basil.introspection.treeProcess.FileStructure;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class EditorView extends BorderPane {
 
-    public static Map<CellView, Boolean> DISPLAYED_CELLS = new HashMap<>();
+    public static Map<BasilClassView, Boolean> DISPLAYED_CELLS = new HashMap<>();
     private final String directoryPath;
 
     public EditorView(String directoryPath) {
@@ -20,8 +23,7 @@ public class EditorView extends BorderPane {
         MenuBar menuBar = new MenuBar();
         this.setTop(menuBar);
 
-        TreeView<String> treeView = new TreeView<>();
-        treeView.setRoot(TreeStructure.getTreeStructure(directoryPath));
+        TreeView<FileStructure> treeView = new NavigatorView(directoryPath);
         this.setLeft(treeView);
 
         Text text = new Text("Editor");

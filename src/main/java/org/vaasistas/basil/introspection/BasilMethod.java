@@ -5,16 +5,16 @@ import java.util.List;
 
 public class BasilMethod {
 
-    private List<Integer> modifiers;
+    private int modifiers;
     private Class<?> returnType;
     private String name;
     private List<Parameter> parameters;
 
-    public List<Integer> getModifiers() {
+    public int getModifiers() {
         return modifiers;
     }
 
-    public BasilMethod setModifiers(List<Integer> modifiers) {
+    public BasilMethod setModifiers(int modifiers) {
         this.modifiers = modifiers;
         return this;
     }

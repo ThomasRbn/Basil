@@ -1,18 +1,16 @@
 package org.vaasistas.basil.introspection;
 
-import java.util.List;
-
 public class BasilField {
 
-    private List<Integer> modifiers;
+    private int modifiers;
     private Class<?> type;
     private String name;
 
-    public List<Integer> getModifiers() {
+    public int getModifiers() {
         return modifiers;
     }
 
-    public BasilField setModifiers(List<Integer> modifiers) {
+    public BasilField setModifiers(int modifiers) {
         this.modifiers = modifiers;
         return this;
     }

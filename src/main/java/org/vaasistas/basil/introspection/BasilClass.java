@@ -19,13 +19,17 @@ public class BasilClass {
             this.name = Introspection.getName(currentClass);
             this.pkg = Introspection.getPackage(currentClass);
             this.interfaces = Introspection.getInterfaces(currentClass);
-            this.superClass = Introspection.getSuperClass(currentClass);
+            this.superClass = Introspection.getSuperClazz(currentClass);
             this.fields = Introspection.getFields(currentClass, includeSuperClassFields);
             this.constructors = Introspection.getConstructors(currentClass);
             this.methods = Introspection.getMethods(currentClass);
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found: " + name);
         }
+    }
+
+    public BasilClass(String name) {
+        this(name, true);
     }
 
     public String getName() {

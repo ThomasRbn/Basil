@@ -46,8 +46,12 @@ public class Introspection {
      * @param clazz the class
      * @return the superclass of the class
      */
-    public static Class<?> getSuperClass(Class<?> clazz) {
-        return clazz.getSuperclass();
+    public static Class<?> getSuperClazz(Class<?> clazz) {
+        if (clazz.getSuperclass() == Object.class) {
+            return null;
+        } else {
+            return clazz.getSuperclass();
+        }
     }
 
     /**
@@ -62,15 +66,15 @@ public class Introspection {
         List<BasilField> basilFields = new ArrayList<>();
 
         if (includeSuperClass) {
-            Class<?> superClass = clazz.getSuperclass();
+            Class<?> superClass = getSuperClazz(clazz);
             if (superClass != null) {
                 basilFields.addAll(getFields(superClass, false));
             }
         }
 
-        for (Field currentField : fields){
+        for (Field currentField : fields) {
             BasilField basilField = new BasilField();
-            basilField.setModifiers(List.of(currentField.getModifiers()));
+            basilField.setModifiers(currentField.getModifiers());
             basilField.setType(currentField.getType());
             basilField.setName(currentField.getName());
             basilFields.add(basilField);
@@ -89,9 +93,9 @@ public class Introspection {
         List<Constructor<?>> constructors = List.of(clazz.getConstructors());
         List<BasilMethod> basilConstructors = new ArrayList<>();
 
-        for (Constructor<?> currentConstructor : constructors){
+        for (Constructor<?> currentConstructor : constructors) {
             BasilMethod basilConstructor = new BasilMethod();
-            basilConstructor.setModifiers(List.of(currentConstructor.getModifiers()));
+            basilConstructor.setModifiers(currentConstructor.getModifiers());
             basilConstructor.setParameters(List.of(currentConstructor.getParameters()));
             basilConstructors.add(basilConstructor);
         }
@@ -106,12 +110,12 @@ public class Introspection {
      * @return all the methods of the class
      */
     public static List<BasilMethod> getMethods(Class<?> clazz) {
-        List<Method> methods = List.of(clazz.getMethods());
+        List<Method> methods = List.of(clazz.getDeclaredMethods());
         List<BasilMethod> basilMethods = new ArrayList<>();
 
-        for (Method currentMethod : methods){
+        for (Method currentMethod : methods) {
             BasilMethod basilMethod = new BasilMethod();
-            basilMethod.setModifiers(List.of(currentMethod.getModifiers()));
+            basilMethod.setModifiers(currentMethod.getModifiers());
             basilMethod.setReturnType(currentMethod.getReturnType());
             basilMethod.setName(currentMethod.getName());
             basilMethod.setParameters(List.of(currentMethod.getParameters()));
