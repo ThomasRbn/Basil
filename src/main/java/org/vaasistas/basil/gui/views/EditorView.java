@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class EditorView extends BorderPane {
 
-    public static Map<BasilClassView, Boolean> DISPLAYED_CELLS = new HashMap<>();
     private final String directoryPath;
 
     public EditorView(String directoryPath) {

@@ -1,7 +1,9 @@
 package org.vaasistas.basil.gui.views;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -11,10 +13,12 @@ import org.vaasistas.basil.introspection.BasilMethod;
 
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
+import java.util.Objects;
 
 public class BasilClassView extends VBox {
 
-    private Text className;
+    private String className;
+    private VBox header;
     private VBox classFields;
     private VBox classConstructors;
     private VBox classMethods;
@@ -24,19 +28,47 @@ public class BasilClassView extends VBox {
 
     public BasilClassView(BasilClass basilClass, DiagramView diagramView) {
         this.diagramView = diagramView;
-        System.out.println(basilClass.getName());
-        this.className = new Text(basilClass.getName());
+        this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+
+        this.className = basilClass.getName();
+
+        this.header = new VBox();
+        this.header.getChildren().add(new Text(this.className));
+        this.header.setAlignment(Pos.CENTER);
+        this.header.setPadding(new Insets(10, 10, 10, 10));
+
         this.classFields = new VBox();
+        classFields.setBorder(new Border(new BorderStroke(Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK,
+                BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,  BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
+                null, null, null)));
+        this.classFields.setPadding(new Insets(10, 10, 10, 10));
+        this.classFields.setSpacing(3);
+
+
         this.classConstructors = new VBox();
+        classConstructors.setBorder(new Border(new BorderStroke(Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK,
+                BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,  BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
+                null, null, null)));
+        this.classConstructors.setPadding(new Insets(10, 10, 10, 10));
+        this.classConstructors.setSpacing(3);
+
+
         this.classMethods = new VBox();
-        this.squarePosition = new SquarePosition(0, 0, 100, 100);
+        classMethods.setBorder(new Border(new BorderStroke(Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK,
+                BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,  BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
+                null, null, null)));
+        this.classMethods.setPadding(new Insets(10, 10, 10, 10));
+        this.classMethods.setSpacing(3);
+
+
+        this.squarePosition = new SquarePosition(20, 20, 100, 100);
 
         this.setLayoutX(squarePosition.getPosX());
         this.setLayoutY(squarePosition.getPosY());
         this.setMinWidth(squarePosition.getWidth());
         this.setMinHeight(squarePosition.getHeight());
 
-        this.getChildren().add(className);
+        this.getChildren().add(header);
 
         for (BasilField basilField : basilClass.getFields()) {
             Label fieldLabel = getFieldLabel(basilField);
@@ -56,7 +88,6 @@ public class BasilClassView extends VBox {
         this.getChildren().add(classFields);
         this.getChildren().add(classConstructors);
         this.getChildren().add(classMethods);
-        this.diagramView.addClass(this);
     }
 
     /**
@@ -69,15 +100,19 @@ public class BasilClassView extends VBox {
         Label fieldLabel = new Label();
         if (Modifier.isPublic(basilField.getModifiers())) {
             Circle circle = new Circle(8, Color.GREEN);
+            circle.setStroke(Color.BLACK);
             fieldLabel.setGraphic(circle);
         } else if (Modifier.isPrivate(basilField.getModifiers())) {
             Circle circle = new Circle(8, Color.RED);
+            circle.setStroke(Color.BLACK);
             fieldLabel.setGraphic(circle);
         } else if (Modifier.isProtected(basilField.getModifiers())) {
             Circle circle = new Circle(8, Color.YELLOW);
+            circle.setStroke(Color.BLACK);
             fieldLabel.setGraphic(circle);
         } else {
             Circle circle = new Circle(8, Color.GRAY);
+            circle.setStroke(Color.BLACK);
             fieldLabel.setGraphic(circle);
         }
 
@@ -106,15 +141,19 @@ public class BasilClassView extends VBox {
         Label methodLabel = new Label();
         if (Modifier.isPublic(method.getModifiers())) {
             Circle circle = new Circle(8, Color.GREEN);
+            circle.setStroke(Color.BLACK);
             methodLabel.setGraphic(circle);
         } else if (Modifier.isPrivate(method.getModifiers())) {
             Circle circle = new Circle(8, Color.RED);
+            circle.setStroke(Color.BLACK);
             methodLabel.setGraphic(circle);
         } else if (Modifier.isProtected(method.getModifiers())) {
             Circle circle = new Circle(8, Color.YELLOW);
+            circle.setStroke(Color.BLACK);
             methodLabel.setGraphic(circle);
         } else {
             Circle circle = new Circle(8, Color.GRAY);
+            circle.setStroke(Color.BLACK);
             methodLabel.setGraphic(circle);
         }
 
@@ -145,5 +184,18 @@ public class BasilClassView extends VBox {
         String returnType = method.getReturnType() == null ? basilClass.getName() : method.getReturnType().getSimpleName();
         methodLabel.setText(methodLabel.getText() + " : " + returnType);
         return methodLabel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasilClassView that = (BasilClassView) o;
+        return Objects.equals(className, that.className) && Objects.equals(diagramView, that.diagramView);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(className, diagramView);
     }
 }

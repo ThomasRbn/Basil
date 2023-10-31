@@ -30,7 +30,8 @@ public class NavigatorView extends TreeView<FileStructure> {
                 if (selectedItem != null) {
                     FileStructure file = selectedItem.getValue();
                     BasilClass basilClass = new BasilClass(file.getPackage() + file.getName().substring(0, file.getName().length() - 5));
-                    new BasilClassView(basilClass, this.diagramView);
+                    BasilClassView basilClassView = new BasilClassView(basilClass, diagramView);
+                    diagramView.editDisplay(basilClassView);
                 }
             }
         });
