@@ -8,6 +8,9 @@ public class SquarePosition {
     private double width;
     private double height;
 
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     public SquarePosition(double posX, double posY, double width, double height) {
         this.posX = posX;
         this.posY = posY;
@@ -48,6 +51,24 @@ public class SquarePosition {
 
     public SquarePosition setHeight(double height) {
         this.height = height;
+        return this;
+    }
+
+    public double getxOffset() {
+        return xOffset;
+    }
+
+    public SquarePosition setxOffset(double xOffset) {
+        this.xOffset = xOffset;
+        return this;
+    }
+
+    public double getyOffset() {
+        return yOffset;
+    }
+
+    public SquarePosition setyOffset(double yOffset) {
+        this.yOffset = yOffset;
         return this;
     }
 }

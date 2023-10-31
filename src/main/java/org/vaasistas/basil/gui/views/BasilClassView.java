@@ -88,6 +88,26 @@ public class BasilClassView extends VBox {
         this.getChildren().add(classFields);
         this.getChildren().add(classConstructors);
         this.getChildren().add(classMethods);
+
+        this.setOnMousePressed(event -> {
+            // Lorsque la souris est pressée, enregistrez la position actuelle de la souris
+            this.squarePosition.setxOffset(event.getSceneX());
+            this.squarePosition.setyOffset(event.getSceneY());
+        });
+
+        this.setOnMouseDragged(event -> {
+            // Calculez la différence de position de la souris par rapport à la position enregistrée
+            double deltaX = event.getSceneX() - this.squarePosition.getxOffset();
+            double deltaY = event.getSceneY() - this.squarePosition.getyOffset();
+
+            // Mettez à jour la position du VBox en fonction de la différence de position
+            this.setLayoutX(this.getLayoutX() + deltaX);
+            this.setLayoutY(this.getLayoutY() + deltaY);
+
+            // Enregistrez la nouvelle position de la souris pour la prochaine itération
+            this.squarePosition.setxOffset(event.getSceneX());
+            this.squarePosition.setyOffset(event.getSceneY());
+        });
     }
 
     /**
